@@ -29,14 +29,13 @@ Hooks.once("init", async function () {
     restricted: false,  // Restrict this Keybinding to gamemaster only?
     reservedModifiers: [],
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
-  });  
+  });
 });
 
 Hooks.once('init', function() {
   let handRaiser = new HandRaiser();
   window.game.handRaiser = handRaiser;
-  const debouncedReload = debounce(() => location.reload(), 1000); // RELOAD AFTER CHANGE
-  
+
   game.settings.register(moduleName, "handToogleBehavior", {
     name: game.i18n.localize("raise-my-hand.settings.handtooglebehavior.name"), // "Should a raised hand be displayed in the Players list?"
     hint: game.i18n.localize("raise-my-hand.settings.handtooglebehavior.hint"), // "Should a raised hand be displayed in the Players list?"
@@ -57,7 +56,7 @@ Hooks.once('init', function() {
 
   game.settings.register(moduleName, "showUiNotification", {
     name: game.i18n.localize("raise-my-hand.settings.showuinotification.name"), // "Should a raised hand display a UI notification when raised?",
-    hint: game.i18n.localize("raise-my-hand.settings.showuinotification.hint"), // "Should a raised hand display a UI notification when raised?",    
+    hint: game.i18n.localize("raise-my-hand.settings.showuinotification.hint"), // "Should a raised hand display a UI notification when raised?",
     scope: 'world',
     config: true,
     type: Boolean,
@@ -65,22 +64,22 @@ Hooks.once('init', function() {
   });
 
   game.settings.register(moduleName, "makeUiNotificationPermanent", {
-    name: game.i18n.localize("raise-my-hand.settings.makeuinotificationpermanent.name"), 
-    hint: game.i18n.localize("raise-my-hand.settings.makeuinotificationpermanent.hint"), 
+    name: game.i18n.localize("raise-my-hand.settings.makeuinotificationpermanent.name"),
+    hint: game.i18n.localize("raise-my-hand.settings.makeuinotificationpermanent.hint"),
     scope: 'world',
     config: true,
     type: Boolean,
     default: false
   });
-  
+
   game.settings.register(moduleName, "showUiNotificationOnlyToGM", {
-    name: game.i18n.localize("raise-my-hand.settings.showuinotificationonlytogm.name"), 
-    hint: game.i18n.localize("raise-my-hand.settings.showuinotificationonlytogm.hint"), 
+    name: game.i18n.localize("raise-my-hand.settings.showuinotificationonlytogm.name"),
+    hint: game.i18n.localize("raise-my-hand.settings.showuinotificationonlytogm.hint"),
     scope: 'world',
     config: true,
     type: Boolean,
     default: false
-  });  
+  });
 
   game.settings.register(moduleName, "showUiChatMessage", {
     name: game.i18n.localize("raise-my-hand.settings.showuichatmessage.name"), // "Should a raised hand display a chat message when raised?"
@@ -108,7 +107,7 @@ Hooks.once('init', function() {
     type: Boolean,
     default: true
   });
-  
+
   // call this with: game.settings.get("raise-my-hand", "chatimagepath")
   game.settings.register(moduleName, 'chatimagepath', {
     name: game.i18n.localize("raise-my-hand.settings.chatimagepath.name"), // Chat Image Path
@@ -118,8 +117,8 @@ Hooks.once('init', function() {
     default: 'modules/raise-my-hand/assets/hand.svg',
     type: String,
     filePicker: 'imagevideo'
-  }); 
-  
+  });
+
   game.settings.register(moduleName, 'chatimagewidth', {
     name: game.i18n.localize("raise-my-hand.settings.chatimagewidth.name"), // 'Chat Image Width'
     hint: game.i18n.localize("raise-my-hand.settings.chatimagewidth.hint"), // 'You can set the size of the custom image or player avatar. It is %'
@@ -130,9 +129,9 @@ Hooks.once('init', function() {
       min: 20,
       max: 100,
       step: 5
-    },    
+    },
     type: Number
-  }); 
+  });
 
   game.settings.register(moduleName, "chatMessageImageUserArt", {
     name: game.i18n.localize("raise-my-hand.settings.chatmessageimageuserart.name"), // "Should chat image be the user avatar?"
@@ -142,26 +141,26 @@ Hooks.once('init', function() {
     type: Boolean,
     default: false
   });
-  
+
   // call this with: game.settings.get("raise-my-hand", "showDialogMessage")
   game.settings.register(moduleName, "showDialogMessage", {
     name: game.i18n.localize("raise-my-hand.settings.showdialogmessage.name"), // Show Dialog
-    hint: game.i18n.localize("raise-my-hand.settings.showdialogmessage.hint"), // This will show a dialog with the defined image.    
+    hint: game.i18n.localize("raise-my-hand.settings.showdialogmessage.hint"), // This will show a dialog with the defined image.
     scope: 'world',
     config: true,
     type: Boolean,
     default: false
   });
-  
+
   game.settings.register(moduleName, "playSound", {
     name: game.i18n.localize("raise-my-hand.settings.playsound.name"), // "Should a sound be played when raised?"
-    hint: game.i18n.localize("raise-my-hand.settings.playsound.hint"), // 
+    hint: game.i18n.localize("raise-my-hand.settings.playsound.hint"), //
     scope: 'world',
     config: true,
     type: Boolean,
     default: false
   });
-  
+
   // call this with: game.settings.get("raise-my-hand", "warningsoundpath")
   game.settings.register(moduleName, 'warningsoundpath', {
     name: game.i18n.localize("raise-my-hand.settings.warningsoundpath.name"), // 'Warning Sound Path'
@@ -171,8 +170,8 @@ Hooks.once('init', function() {
     default: 'modules/raise-my-hand/assets/bell01.ogg',
     type: String,
     filePicker: 'audio'
-  });  
-  
+  });
+
   // call this with: game.settings.get("raise-my-hand", "warningsoundvolume")
   game.settings.register(moduleName, 'warningsoundvolume', {
     name: game.i18n.localize("raise-my-hand.settings.warningsoundvolume.name"), // "Warning Sound Volume"
@@ -184,7 +183,7 @@ Hooks.once('init', function() {
       min: 0.2,
       max: 1,
       step: 0.1
-    },     
+    },
     type: Number
   });
 
@@ -196,8 +195,8 @@ Hooks.once('init', function() {
     config: true,
     type: Boolean,
     default: false,
-    onChange: debouncedReload
-  });  
+    requiresReload: true,
+  });
   // call this with: game.settings.get("raise-my-hand", "xcardgmonly")
   game.settings.register(moduleName, "xcardgmonly", {
     name: game.i18n.localize("raise-my-hand.settings.xcardgmonly.name"), // Show X Card for GM Only
@@ -210,12 +209,12 @@ Hooks.once('init', function() {
   // call this with: game.settings.get("raise-my-hand", "xcardsound")
   game.settings.register(moduleName, "xcardsound", {
     name: game.i18n.localize("raise-my-hand.settings.xcardsound.name"), // "Should a sound be played when raised?"
-    hint: game.i18n.localize("raise-my-hand.settings.xcardsound.hint"), // 
+    hint: game.i18n.localize("raise-my-hand.settings.xcardsound.hint"), //
     scope: 'world',
     config: true,
     type: Boolean,
     default: true
-  });  
+  });
 
   // call this with: game.settings.get("raise-my-hand", "xcardsoundvolume")
   game.settings.register(moduleName, 'xcardsoundvolume', {
@@ -228,9 +227,9 @@ Hooks.once('init', function() {
       min: 0.1,
       max: 1,
       step: 0.1
-    },     
+    },
     type: Number
-  });  
+  });
 
 /*
   game.settings.register(moduleName, "shakescreen", {
@@ -253,7 +252,7 @@ Hooks.on("getSceneControlButtons", function(controls) {
     button: true,
     onClick: () => window.game.handRaiser.toggle()
   });
-  
+
   if ( game.settings.get("raise-my-hand", "xcard") ) {
     tileControls.tools.push({
       icon: "fas fa-times",
@@ -261,7 +260,7 @@ Hooks.on("getSceneControlButtons", function(controls) {
       title: "X Card",
       button: true,
       onClick: () => window.game.handRaiser.showXCardDialogForEveryoneSocket()
-    });  
+    });
   }
 
 });
