@@ -1,20 +1,41 @@
 #raise-my-hand-dialog {
-	box-shadow: none;
+  box-shadow: none;
 }
 
 #raise-my-hand-dialog .window-content {
   background: none;
-	box-shadow: none;   
+  box-shadow: none;
 }
 
 #raise-my-hand-dialog > section img {
-  border: none;  
-}
-
-#raise-my-hand-dialog .window-title {
-  
+  border: none;
 }
 
 #raise-my-hand-dialog .window-header {
   border: none;
+}
+
+.raise-my-hand.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.raise-my-hand.container .centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  color: black;
+  width: 100%;
+}
+
+label.raise-my-hand.titulo {
+  font-size: 35px;
+  color: #b02b2e;
+}
+
+label.raise-my-hand.mensagem {
+  font-size: 15px;
 }
